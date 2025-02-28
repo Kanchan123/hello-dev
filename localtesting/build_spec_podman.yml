@@ -1,0 +1,121 @@
+version: 0.1
+component: build
+timeoutInSeconds: 6000
+runAs: root
+shell: bash
+env:
+  variables:
+    "testEnv" : "testValue1"
+  exportedVariables:
+    - testEnv
+    - patch_number
+    - build_Result
+    - test_env
+    - test_env1
+
+inputArtifacts:
+  - name: hello-dev-jar
+    location: /workspace/Source/hello123.class
+
+steps:
+  - type: Command
+    name: "Build Source"
+    timeoutInSeconds: 4000
+#     shell: /bin/sh
+    command: |
+      echo $PATH
+      PATH=$PATH:/test
+      echo "-----------------------"
+      echo $PATH
+      echo $testEnv
+      oci os ns get
+      export testEnv=5.0
+      echo OCI_STAGE_ID: $OCI_STAGE_ID
+      echo OCI_PIPELINE_ID: $OCI_PIPELINE_ID
+      echo OCI_BUILD_RUN_ID: $OCI_BUILD_RUN_ID
+      echo OCI_TRIGGER_COMMIT_HASH: $OCI_TRIGGER_COMMIT_HASH
+      echo OCI_TRIGGER_SOURCE_BRANCH_NAME: $OCI_TRIGGER_SOURCE_BRANCH_NAME
+      echo OCI_TRIGGER_SOURCE_URL: $OCI_TRIGGER_SOURCE_URL
+      echo OCI_TRIGGER_EVENT_TYPE: $OCI_TRIGGER_EVENT_TYPE
+      echo OCI_PRIMARY_SOURCE_DIR: $OCI_PRIMARY_SOURCE_DIR
+      echo OCI_WORKSPACE_DIR: $OCI_WORKSPACE_DIR
+      echo OCI_BUILD_STAGE_NAME: $OCI_BUILD_STAGE_NAME
+      echo OCI_PRIMARY_SOURCE_NAME: $OCI_PRIMARY_SOURCE_NAME
+      export minor_version=135
+      echo "hello world"
+      whoami
+      ls -lart
+      git branch
+      df -h > output1.txt
+      mvn clean install
+      ls -lart
+      rm -rf target/
+      ls -lart
+      cd src/main/java/org/example/
+      echo "commit7" > output.txt
+      patch_number=100
+      javac HelloWorld.java
+    onFailure:
+      - type: Command
+        timeoutInSeconds: 400
+#         shell: /bin/sh
+        command: |
+          echo "Handling Failure"
+          echo "Failure successfully handled"
+        timeoutInSeconds: 400
+        runAs: root
+  - type: Command
+    timeoutInSeconds: 400
+    name: "Dockerizer & Test"
+    command: |
+      podman build -t iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0 . > build_Result.txt
+      echo "-----------------------"
+      echo $PATH
+      podman run iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0
+      build_Result=`cat build_Result.txt`
+      cat build_Result.txt
+      echo $build_Result
+      test_env=""abc" "bcd""
+      test_env1="\"abc\" \"bcd\""
+    onFailure:
+      - type: Command
+        command: |
+          echo "Handling Failure"
+          echo "Failure successfully handled"
+        timeoutInSeconds: 400
+        runAs: root
+  - type: Command
+    name: "Install curl"
+    timeoutInSeconds: 4000
+    command: |
+      yum install -y java-11-openjdk-devel
+      JAVA_11=$(alternatives --display java | grep 'family java-11-openjdk' | cut -d' ' -f1)
+      alternatives --set java $JAVA_11
+      podman save iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0 -o docker-image.tar
+      java -version
+  - type: Command
+    name: "Second step"
+    timeoutInSeconds: 4000
+    command: |
+      java -version  
+      
+outputArtifacts:
+  - name: output1
+    type: BINARY
+    location: ${OCI_WORKSPACE_DIR}/Source/output1.txt
+  - name: output2
+    type: BINARY
+    location: docker-image.tar
+#   - name: output
+#     type: BINARY
+#     location: src/main/java/org/example/output.txt
+#   - name: hello-dev-jar
+#     type: BINARY
+#     artifactParams:
+#       testKey: testVal
+#       testKey1: ${testEnv}
+#       testKey2: ${invalidVar}
+#     location: src/main/java/org/example/HelloWorld.class
+  - name: hello-dev-image
+    type: DOCKER_IMAGE
+    location: iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0
