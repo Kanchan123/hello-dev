@@ -7,6 +7,5 @@ steps:
   - type: Command
     name: "Install Maven"
     command: |
-      podman info
-      docker info
-      mvn clean install
+      podman ps
+      docker ps
