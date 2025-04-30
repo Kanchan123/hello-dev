@@ -90,9 +90,9 @@ steps:
     name: "Install curl"
     timeoutInSeconds: 4000
     command: |
-      yum install -y java-11-openjdk-devel
-      JAVA_11=$(alternatives --display java | grep 'family java-11-openjdk' | cut -d' ' -f1)
-      alternatives --set java $JAVA_11
+      yum install -y java-21-openjdk-devel
+      JAVA_21=$(alternatives --display java | grep 'family java-21-openjdk' | cut -d' ' -f1)
+      alternatives --set java $JAVA_21
       echo "-----------------------"
       podman images
       echo "-----------------------"
