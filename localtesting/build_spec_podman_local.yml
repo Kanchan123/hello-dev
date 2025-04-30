@@ -68,12 +68,13 @@ steps:
     timeoutInSeconds: 400
     name: "Dockerizer & Test"
     command: |
-      podman build -t iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0 -f PodmanDockerfile . > build_Result.txt
+#     podman build -t iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0 -f PodmanDockerfile . > build_Result.txt
+      podman pull iad.ocir.io/idllbnfszw6v/openjdk-text:8-alpine
       echo "-----------------------"
       podman images
       echo "-----------------------"
       echo $PATH
-      podman run iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0
+#     podman run iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0
       build_Result=`cat build_Result.txt`
       cat build_Result.txt
       echo $build_Result
@@ -96,7 +97,7 @@ steps:
       echo "-----------------------"
       podman images
       echo "-----------------------"
-      podman save iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0 -o docker-image.tar
+      podman save iad.ocir.io/idllbnfszw6v/openjdk-text:8-alpine -o docker-image.tar
       java -version
   - type: Command
     name: "Second step"
@@ -123,4 +124,4 @@ outputArtifacts:
 #     location: src/main/java/org/example/HelloWorld.class
   - name: hello-dev-image
     type: DOCKER_IMAGE
-    location: iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0
+    location: iad.ocir.io/idllbnfszw6v/openjdk-text:8-alpine
