@@ -68,7 +68,7 @@ steps:
     timeoutInSeconds: 400
     name: "Dockerizer & Test"
     command: |
-      podman pull iad.ocir.io/idllbnfszw6v/openjdk-text:8-alpine
+      podman pull ocr-docker-remote.artifactory.oci.oraclecorp.com/os/oraclelinux:8
       echo "-----------------------"
       podman images
       echo "-----------------------"
@@ -96,7 +96,7 @@ steps:
       echo "-----------------------"
       podman images
       echo "-----------------------"
-      podman save iad.ocir.io/idllbnfszw6v/openjdk-text:8-alpine -o docker-image.tar
+      podman save ocr-docker-remote.artifactory.oci.oraclecorp.com/os/oraclelinux:8 -o docker-image.tar
       java -version
   - type: Command
     name: "Second step"
@@ -123,4 +123,4 @@ outputArtifacts:
 #     location: src/main/java/org/example/HelloWorld.class
   - name: hello-dev-image
     type: DOCKER_IMAGE
-    location: iad.ocir.io/idllbnfszw6v/openjdk-text:8-alpine
+    location: ocr-docker-remote.artifactory.oci.oraclecorp.com/os/oraclelinux:8
