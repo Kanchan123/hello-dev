@@ -68,13 +68,12 @@ steps:
     timeoutInSeconds: 400
     name: "Dockerizer & Test"
     command: |
-#     podman build -t iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0 -f PodmanDockerfile . > build_Result.txt
       podman pull iad.ocir.io/idllbnfszw6v/openjdk-text:8-alpine
       echo "-----------------------"
       podman images
       echo "-----------------------"
       echo $PATH
-#     podman run iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0
+      touch build_Result.txt
       build_Result=`cat build_Result.txt`
       cat build_Result.txt
       echo $build_Result
