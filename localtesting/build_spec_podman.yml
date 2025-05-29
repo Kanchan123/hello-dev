@@ -73,7 +73,7 @@ steps:
       podman images
       echo "-----------------------"
       echo $PATH
-      podman run --network=host --cgroup-manager=cgroupfs --storage-opt "overlay.mount_program=/usr/bin/fuse-overlayfs" --cgroups disabled --mount type=tmpfs,destination=/sys iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0
+      podman run --runtime crun --network=host --cgroup-manager=cgroupfs --storage-opt "overlay.mount_program=/usr/bin/fuse-overlayfs" --cgroups disabled --mount type=tmpfs,destination=/sys iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0
       build_Result=`cat build_Result.txt`
       cat build_Result.txt
       echo $build_Result
