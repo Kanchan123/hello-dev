@@ -23,6 +23,7 @@ steps:
     timeoutInSeconds: 4000
 #     shell: /bin/sh
     command: |
+      dnf install -y crun
       echo $PATH
       PATH=$PATH:/test
       echo "-----------------------"
