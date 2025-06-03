@@ -97,6 +97,7 @@ steps:
       echo "-----------------------"
       podman images
       echo "-----------------------"
+      podman system renumber
       podman save iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0 -o docker-image.tar
       java -version
   - type: Command
