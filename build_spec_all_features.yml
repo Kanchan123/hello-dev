@@ -15,8 +15,6 @@ env:
     - testEnv
 
 inputArtifacts:
-  - name: hello-dev-jar
-    location: /workspace/Source1/hello-dev.iml
   - name: custom-artifact
     url: https://devops-beta.us-ashburn-1.oci.oc-test.com/20210630/buildPipelines
     location: custom-artifact.txt.
