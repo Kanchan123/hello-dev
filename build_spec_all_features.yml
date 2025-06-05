@@ -60,6 +60,9 @@ steps:
     timeoutInSeconds: 400
     name: "Dockerizer & Test"
     command: |
+      pwd
+      ls -lart
+      ls -lart src/main/java/org/example/
       podman build -t iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0 .
       podman run iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0
     onFailure:
