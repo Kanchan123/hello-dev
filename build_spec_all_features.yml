@@ -83,13 +83,6 @@ steps:
     command: |
         docker build -t iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0 .
         docker run iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0
-  - type: Command
-    command: "yum : install : abc"
-    onFailure:
-      - type: Command
-        command: |
-            echo "Handling Failure"
-            echo "Failure successfully handled"
 
 outputArtifacts:
   - name: output1
