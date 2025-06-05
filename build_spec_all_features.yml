@@ -14,10 +14,6 @@ env:
   exportedVariables:
     - testEnv
 
-inputArtifacts:
-  - name: custom-artifact
-    url: https://devops-beta.us-ashburn-1.oci.oc-test.com/20210630/buildPipelines
-    location: custom-artifact.txt.
 
 steps:
   - type: Command
