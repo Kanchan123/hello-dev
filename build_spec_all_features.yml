@@ -10,7 +10,7 @@ env:
   variables:
     "testEnv" : "testValue1"
   vaultVariables:
-    "DB_PASSWORD" : ocid1.vaultsecret.oc1.iad.amaaaaaab6fywtyakotbatgncopjp6ju4u4u45rn4ogphwr3ozphfbuzt5ha
+    "DB_PASSWORD" : ocid1.vaultsecret.oc1.iad.amaaaaaa34lgq7aaac5dftcybofpndjuda5gh4tbykxyxbg2d2f4tyzmfxwq
   exportedVariables:
     - testEnv
 
@@ -38,7 +38,7 @@ steps:
       echo OCI_WORKSPACE_DIR: $OCI_WORKSPACE_DIR
       echo OCI_BUILD_STAGE_NAME: $OCI_BUILD_STAGE_NAME
       echo OCI_PRIMARY_SOURCE_NAME: $OCI_PRIMARY_SOURCE_NAME
-      apt-get ::install -y maven
+      yum install -y maven
       export minor_version=135
       ls -lart
       echo "hello world"
@@ -54,6 +54,7 @@ steps:
       echo "commit7" > output.txt
       export $testEnv=test
       javac HelloWorld.java
+      echo $DB_PASSWORD
     onFailure:
       - type: Command
         timeoutInSeconds: 400
@@ -65,8 +66,8 @@ steps:
     timeoutInSeconds: 400
     name: "Dockerizer & Test"
     command: |
-      docker build -t iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0 .
-      docker run iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0
+      podman build -t iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0 .
+      podman run iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0
     onFailure:
       - type: Command
         command: |
@@ -77,7 +78,7 @@ steps:
   - type: Command
     timeoutInSeconds: 400
     name: "trtdtd"
-    command: apt-get ::install -y maven
+    command: yum install -y maven
   - type: Command
     timeoutInSeconds: 400
     name: "Another step"
@@ -90,9 +91,9 @@ steps:
         docker run iad.ocir.io/id204we8d65n/balaregistry/hello-bala:1.0
   - type: Command
     command: |
-        apt-get : install : abc
+        yum : install : abc
   - type: Command
-    command: "apt-get : install : abc"
+    command: "yum : install : abc"
     onFailure:
       - type: Command
         command: |
