@@ -87,7 +87,7 @@ steps:
 outputArtifacts:
   - name: output1
     type: BINARY
-    location: ${OCI_WORKSPACE_DIR}/Source1/output1.txt
+    location: ${OCI_WORKSPACE_DIR}/kd-connection-hello-dev/output1.txt
   - name: output
     type: BINARY
     location: src/main/java/org/example/output.txt
