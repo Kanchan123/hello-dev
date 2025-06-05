@@ -36,9 +36,6 @@ steps:
       export minor_version=135
       ls -lart
       echo "hello world"
-      cd /workspace
-      ls -lart
-      cd /workspace/Source1
       ls -lart
       git branch
       cat README.md > output1.txt
