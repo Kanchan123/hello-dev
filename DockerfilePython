@@ -1,0 +1,14 @@
+FROM iad.ocir.io/axg3zewhl95k/do-not-delete-python-39-slim-with-apt:2.0-slim-bullseye
+RUN apt-get update -y
+RUN apt-get install wget -y
+RUN apt-get install wget -y
+RUN apt-get install curl -y
+RUN wget https://gitlab.com/dlcbld/deliver-artifact-test/-/blob/build-deliver-trigger-test/build_spec_ocir.yml
+## check curl from docker
+RUN curl -vv -I https://about.gitlab.com/
+
+WORKDIR /app
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
+COPY . .
+CMD [ "python3", "-m", "flask", "run", "--host=0.0.0.0" ]
