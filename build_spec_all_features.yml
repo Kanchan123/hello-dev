@@ -10,7 +10,9 @@ env:
   variables:
     "testEnv" : "testValue1"
   vaultVariables:
-    "DB_PASSWORD" : ocid1.vaultsecret.oc1.iad.amaaaaaa34lgq7aaac5dftcybofpndjuda5gh4tbykxyxbg2d2f4tyzmfxwq
+    "DB_PASSWORD" : ocid1.vaultsecret.oc1.iad.amaaaaaa4725fbqahgkd6n4haz4pt3fpfkihef5ppvjcmknb3ptymo66rslq
+    # devtest vault ocid - ocid1.vaultsecret.oc1.iad.amaaaaaa34lgq7aaac5dftcybofpndjuda5gh4tbykxyxbg2d2f4tyzmfxwq
+    # preprodtest vault ocid - ocid1.vaultsecret.oc1.iad.amaaaaaa4725fbqahgkd6n4haz4pt3fpfkihef5ppvjcmknb3ptymo66rslq
   exportedVariables:
     - testEnv
 
